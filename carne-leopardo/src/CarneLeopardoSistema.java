@@ -62,19 +62,19 @@ public class CarneLeopardoSistema {
     }
 
     public double reajustarTributo(int codigoTributo, int ano, double percentual) {
-        if (codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo] != null || this.tributos[codigoTributo].getAno() == ano) {
+        if (codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo-1] != null || this.tributos[codigoTributo-1].getAno() == ano) {
             return 0;
         }
-        this.tributos[codigoTributo].reajustaValor(percentual);
-        return this.tributos[codigoTributo].getValor();
+        this.tributos[codigoTributo-1].reajustaValor(percentual);
+        return this.tributos[codigoTributo-1].getValor();
     }
 
     public String atributirTributoAoContribuinte(int codigoTributo, String cpfContribuinte) {
         Contribuinte c = this.buscaContribuinte(cpfContribuinte);
-        if (c == null || codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo] == null) {
+        if (c == null || codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo-1] == null) {
             return "TRIBUTO OU CONTRIBUINTE NÃO ENCONTRADO";
         }
-        Tributo t = this.tributos[codigoTributo];
+        Tributo t = this.tributos[codigoTributo-1];
         Tributo novoTributo = new Tributo(t.getCodigo(), t.getDescricao(), t.getAno(), t.getValor());
         c.atribuirTributo(novoTributo);
         return "TRIBUTO ADICIONADO COM SUCESSO";
@@ -82,10 +82,10 @@ public class CarneLeopardoSistema {
 
     public String pagarTributo(String cpfContribuinte, int codigoTributo) {
         Contribuinte c = this.buscaContribuinte(cpfContribuinte);
-        if (c == null || codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo] == null) {
+        if (c == null || codigoTributo < 1 || codigoTributo > 60 || this.tributos[codigoTributo-1] == null) {
             return "TRIBUTO OU CONTRIBUINTE NÃO ENCONTRADO";
         }
-        this.tributos[codigoTributo].pagar();
+        this.tributos[codigoTributo-1].pagar();
         return "TRIBUTO PAGO COM SUCESSO";
     }
 
