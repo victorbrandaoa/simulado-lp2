@@ -12,10 +12,8 @@ public class CarneLeopardoSistema {
     private Contribuinte buscaContribuinte(String cpfContribuinte) {
         for (int i=0; i < this.indexProxContribuinte; i++) {
             Contribuinte c = this.contribuintes[i];
-            if (c != null) {
-                if (cpfContribuinte.equals(c.getCpf())) {
-                    return c;
-                }
+            if (cpfContribuinte.equals(c.getCpf())) {
+                return c;
             }
         }
         return null;
